@@ -1,0 +1,38 @@
+.website {
+  margin: auto;
+  text-align: center;
+  width: 1000px;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.blog-container {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.mapped {
+  width: 250px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 2%;
+}
+
+.works {
+  display: flex;
+  flex-flow: row wrap;
+}
+
