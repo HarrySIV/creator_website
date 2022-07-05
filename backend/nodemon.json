@@ -1,0 +1,8 @@
+{
+  "env": {
+    "DB_USER": "harrysiv",
+    "DB_PASSWORD": "StopBeingRidiculous",
+    "DB_NAME": "rjweb",
+    "JWT_KEY": "9wuJKF3kCUeZ"
+  }
+}
