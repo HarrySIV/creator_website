@@ -1,4 +1,4 @@
-// import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Route,
   //Redirect,
@@ -20,17 +20,27 @@ import MainNavigation from './shared/components/Navigation/MainNavigation';
 
 import './App.css';
 import Title from './pages/Title.js';
+import BlogPost from './pages/Blog/Blog_Post.js';
+
+const blogs = [];
 
 function App() {
+  const [blogID, setBlogID] = useState(null);
   // const { token, login, logout, userId } = useAuth();
+
+  const getBlogID = () => {
+    setBlogID(blogs.id);
+  }
+
   let routes;
   routes = (
     <Routes>
-      <Route path="/" element={<Blog />} />
+      <Route path="/" element={<Blog />} onClick={getBlogID} />
       <Route path="/works" element={<Works />} />
       <Route path="/about" element={<About />} />
       <Route path="/login" element={<Login />} />
       <Route path="/error" element={<Error />} />
+      <Route path={`/:blogID`} element={<BlogPost />} />
     </Routes>
   );
 

@@ -1,7 +1,7 @@
-import Blogcontainer from "./Blogcontainer";
+import BlogContainer from "./Blog_Container";
 
 const Blog = () => {
-  return <Blogcontainer />;
+  return <BlogContainer />;
 };
 
 export default Blog;
