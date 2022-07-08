@@ -24,6 +24,14 @@
   flex-flow: row wrap;
 }
 
+.no-link {
+  text-decoration: none;
+}
+
+.no-link:visited {
+  color: black;
+}
+
 .mapped {
   width: 250px;
   border-radius: 10px;
@@ -35,4 +43,3 @@
   display: flex;
   flex-flow: row wrap;
 }
-

@@ -9,16 +9,13 @@ const NavLinks = (props) => {
   return (
     <ul className={styles.navlinks}>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/">Blog</NavLink>
       </li>
       <li>
         <NavLink to="/works">Works</NavLink>
       </li>
       <li>
         <NavLink to="/about">About</NavLink>
-      </li>
-      <li>
-        <NavLink to="/blog">Blog</NavLink>
       </li>
       {auth.isLoggedIn && <button onClick={auth.logout}>LOGOUT</button>}
     </ul>

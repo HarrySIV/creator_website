@@ -1,4 +1,4 @@
-import BlogContainer from "./Blog_Container";
+import BlogContainer from './Blog_Container';
 
 const Blog = () => {
   return <BlogContainer />;
