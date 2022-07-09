@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useBlog } from '../../shared/hooks/blog-hook';
 
 const BlogPost = () => {
-  const [blogID, setBlogID] = useState(null);
+  const [id, setID] = useState(null);
   const { blogs } = useBlog();
+  const { blogID } = useParams();
   useEffect(() => {
-    setBlogID(parseInt(window.location.pathname[1]));
+    setID(parseInt(blogID));
   }, [blogID]);
-  if (!blogs || blogID === null) return <h1>Loading</h1>;
+  if (!blogs || id === null) return <h1>Loading</h1>;
   return (
     <>
-      <h2>{`${blogs[blogID].title}`}</h2>
-      <p>{`${blogs[blogID].description}`}</p>
+      <h2>{`${blogs[id].title}`}</h2>
+      <p>{`${blogs[id].description}`}</p>
     </>
   );
 };
