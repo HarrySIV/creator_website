@@ -6,6 +6,7 @@ const HttpError = require('../models/http-error');
 const login = async (req, res, next) => {
   const { email, password } = req.body;
 
+      //check authorization credentials from database
   let creator;
   let isValidPassword = false;
   try {
