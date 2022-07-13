@@ -1,30 +1,28 @@
 const fs = require('fs');
 const { default: mongoose } = require('mongoose');
 
-const Blog = require('../models/blog')
+const Blog = require('../models/blog');
 
 const HttpError = require;
 
 const getBlogs = async (req, res, next) => {
   const blogID = req.params.bid;
 
-  let blog;
+  let blogs;
   try {
-    blog = await blog.findById(blogID);
+    blogs = await Blog.findById(blogID);
   } catch (error) {
-    const err = new HttpError(
-      'Something went wrong, could not find a blog',
-      500
-    );
+    const err = new HttpError('Something went wrong, could not find blog', 500);
     return next(err);
   }
-  if (!blog) {
+  if (!blogs) {
     const err = new HttpError('Could not find blog for the provided id.', 404);
     return next(err);
   }
 
-  res.json({ blog: blog.toObject({ getters: true }) });
+  res.json({ blogs: blogs.map((blog) => blog.toObject({ getters: true })) });
 };
+
 
 const createBlog = async (req, res, next) => {
   const { title, description } = req.body;
@@ -41,10 +39,11 @@ const createBlog = async (req, res, next) => {
     await sess.commitTransaction();
   } catch (error) {
     const err = new HttpError('Creating blog failed, please try again', 500);
-    return next(err)
+    return next(err);
   }
   res.status(201).json({ blog: createdBlog });
 };
+
 
 const updateBlog = async (req, res, next) => {
   const { title, description } = req.body;
@@ -56,7 +55,7 @@ const updateBlog = async (req, res, next) => {
     blog = await blog.findById(blogID);
   } catch (error) {
     const err = new HttpError(
-      'Something went wrong, place was not updated.',
+      'Something went wrong, blog was not updated.',
       500
     );
     return next(err);
@@ -69,13 +68,14 @@ const updateBlog = async (req, res, next) => {
     await blog.save();
   } catch (error) {
     const err = new HttpError(
-      'Something went wrong, place was not updated.',
+      'Something went wrong, blog was not updated.',
       500
     );
     return next(err);
   }
   res.status(200).json({ blog: blog.toObject({ getters: true }) });
 };
+
 
 const deleteBlog = (req, res, next) => {
   const blogID = req.params.bid;
@@ -85,7 +85,7 @@ const deleteBlog = (req, res, next) => {
     blog = await Blog.findById(blogID).populate();
   } catch (error) {
     const err = new HttpError(
-      'Something went wrong, could not delete place',
+      'Something went wrong, could not delete blog',
       500
     );
     return next(err);
@@ -99,13 +99,14 @@ const deleteBlog = (req, res, next) => {
     await sess.commitTransaction();
   } catch (error) {
     const err = new HttpError(
-      'Something went wrong, could not delete place.',
+      'Something went wrong, could not delete blog.',
       500
     )
     return next(err)
   }
   res.status(200).json({ message: 'Deleted Blog' })
 }
+
 
 exports.getBlogs = getBlogs;
 exports.createBlog = createBlog;

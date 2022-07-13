@@ -5,12 +5,10 @@ const blogsController = require('../controllers/blogs-controller');
 
 router.get('/:bid', blogsController.getBlogs);
 
-router.post('/', (req, res, next) => {
-  res.send('Hello');
-});
+router.patch('/:bid', blogsController.updateBlog);
 
-router.patch('/:bid', (req, res, next) => {
-  blogsController.updateBlog;
-});
+router.delete('/:bid', blogsController.deleteBlog);
+
+router.post('/', blogsController.createBlog);
 
 module.exports = router;
