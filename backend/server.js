@@ -43,15 +43,17 @@ server.use((error, req, res, next) => {
   res.json({ message: error.message || 'An unknown error occurred!' });
 });
 
-server.listen(5001);
-
-// mongoose
-//   .connect(
-//     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.d9kcs.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
-//   )
-//   .then(() => {
-//     server.listen(5001);
-//   })
-//   .catch((err) => {
-//     console.log(err.message);
-//   });
+mongoose
+  .connect(
+    //`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.d9kcs.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
+    `mongodb://${process.env.DB_USER}:${encodeURIComponent(
+      process.env.DB_PASSWORD
+    )}@127.0.0.1:5001/rjweb?retryWrites=true&w=majority`
+  )
+  .then(() => {
+    server.listen(5000);
+    console.log('listening...');
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
