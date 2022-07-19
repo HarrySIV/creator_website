@@ -6,6 +6,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+const blogsRoutes = require('./routes/blogs-routes');
+
 const server = express();
 
 server.use(bodyParser.json());
@@ -23,7 +25,7 @@ server.use((req, res, next) => {
   next();
 });
 
-//server.use('./api/blogs');
+server.use('./api/blogs', blogsRoutes);
 
 server.use((req, res, next) => {
   const error = new HttpError('Could not find this route', 404);
