@@ -3,9 +3,19 @@ const { default: mongoose } = require('mongoose');
 
 const Blog = require('../models/blog');
 
-const HttpError = require;
+const HttpError = require('../models/http-error');
 
 const getBlogs = async (req, res, next) => {
+  let blogs;
+  try {
+    blogs = await Blog.find({});
+  } catch (error) {
+    const err = new HttpError('No blogs found.', 500);
+    return next(err);
+  }
+};
+
+const getABlog = async (req, res, next) => {
   // get ID of blog from url
   const blogID = req.params.bid;
 
@@ -120,6 +130,7 @@ const deleteBlog = async (req, res, next) => {
 };
 
 exports.getBlogs = getBlogs;
+exports.getABlog = getABlog;
 exports.createBlog = createBlog;
 exports.updateBlog = updateBlog;
 exports.deleteBlog = deleteBlog;

@@ -1,6 +1,11 @@
-require('dotenv').config();
-const fs = require('fs');
 const path = require('path');
+require('dotenv').config();
+
+const dbURL = process.env.DB_URL;
+const port = 5000;
+
+const fs = require('fs');
+//const HttpError = require('./models/http-error');
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -25,12 +30,12 @@ server.use((req, res, next) => {
   next();
 });
 
-server.use('./api/blogs', blogsRoutes);
+server.get('/api/blogs', blogsRoutes);
 
-server.use((req, res, next) => {
-  const error = new HttpError('Could not find this route', 404);
-  throw error;
-});
+// server.use((req, res, next) => {
+//   const error = new HttpError('Could not find this route', 404);
+//   throw error;
+// });
 
 server.use((error, req, res, next) => {
   if (req.file) {
@@ -46,16 +51,10 @@ server.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect(
-    //`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.d9kcs.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
-    `mongodb://${process.env.DB_USER}:${encodeURIComponent(
-      process.env.DB_PASSWORD
-    )}@127.0.0.1:5001/rjweb?retryWrites=true&w=majority`
-  )
+  .connect(dbURL)
   .then(() => {
-    server.listen(5000);
-    console.log('listening...');
+    server.listen(port);
   })
   .catch((err) => {
-    console.log(err.message);
+    console.log(err);
   });
