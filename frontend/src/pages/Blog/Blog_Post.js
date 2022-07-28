@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useBlog } from '../../shared/hooks/blog-hook';
 
-const BlogPost = () => {
+const BlogPost = (props) => {
   const [id, setID] = useState(null);
   const { blogs } = useBlog();
   const { blogID } = useParams();

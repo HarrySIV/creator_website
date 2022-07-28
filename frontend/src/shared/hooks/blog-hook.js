@@ -1,32 +1,27 @@
 import { useState, useEffect } from 'react';
+import { useHttpClient } from './http-hook';
 
 export const useBlog = () => {
+  const backendURL = process.env.BACKEND_URL;
   const [blogs, setBlogs] = useState([]);
+  const [loadedBlogs, setLoadedBlogs] = useState();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-  useEffect(
-    () =>
-      setBlogs([
-        {
-          title: 'A short rant',
-          description: `Here's some text`,
-          tags: ['tag1, tag2'],
-          key: 0,
-        },
-        {
-          title: 'Post 2',
-          description: `Here's some more text!`,
-          tags: ['tag1, tag3'],
-          key: 1,
-        },
-        {
-          title: 'The Final Blog',
-          description: `Here's some amazing text`,
-          tags: ['tag2, tag3'],
-          key: 2,
-        },
-      ]),
-    []
-  );
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const responseData = await sendRequest(`${backendURL}`);
+        setBlogs(responseData);
+      } catch (error) {}
+    };
+    fetchBlogs();
+  }, [sendRequest]);
 
-  return { blogs };
+  const blogDeleteHandler = (deletedBlogID) => {
+    setLoadedBlogs((prevBlogs) => {
+      prevBlogs.filter((blog) => blog.id !== deletedBlogID);
+    });
+  };
+
+  return { blogs, blogDeleteHandler };
 };
