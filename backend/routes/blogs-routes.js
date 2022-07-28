@@ -1,7 +1,5 @@
 const express = require('express');
-
 const blogsController = require('../controllers/blogs-controller');
-
 const router = express.Router();
 
 //get blogs
